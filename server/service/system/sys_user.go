@@ -117,7 +117,7 @@ func (userService *UserService) GetUserInfoList(info systemReq.GetUserList) (lis
 //@param: id float64
 //@return: err error
 
-func (userService *UserService) DeleteUser(id int) (err error) {
+func (userService *UserService)DeleteUser(id int) (err error) {
 	return global.GVA_DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Where("id = ?", id).Delete(&system.SysUser{}).Error; err != nil {
 			return err

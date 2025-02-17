@@ -60,20 +60,10 @@ mongo:
         - host: ''
           port: ''
 
-# email configuration
-email:
-    to: xxx@qq.com
-    port: 465
-    from: xxx@163.com
-    host: smtp.163.com
-    is-ssl: true
-    secret: xxx
-    nickname: test
-
 # system configuration
 system:
     env: local # 修改为public可以关闭路由日志输出
-    addr: 8889
+    addr: 8888
     db-type: mysql
     oss-type: local # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
     use-redis: false # 使用redis
