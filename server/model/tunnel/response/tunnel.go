@@ -8,5 +8,5 @@ type CreateTunnelResponse struct {
 
 type FindUserAllTunnelsResponse struct {
 	Tunnels []tunnel.Tunnel `json:"tunnels"`
-	Total   int64             `json:"total"`
+	Total   int             `json:"total"`
 }

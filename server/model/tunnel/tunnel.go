@@ -23,7 +23,7 @@ type Tunnel struct {
 
 // TableName 指定表名
 func (t *Tunnel) TableName() string {
-    return "shop_tunnels"
+    return "tunnels"
 }
 
 // GetTunnelById 根据ID查询通道

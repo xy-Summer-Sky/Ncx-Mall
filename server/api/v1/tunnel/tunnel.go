@@ -20,7 +20,7 @@ type TunnelApi struct {}
 // @Produce  application/json
 // @Param     data  body    tunnelReq.CreateTunnel "用户ID，隧道参数"
 // @Success   200   {object}  response.Response{msg=string}  "隧道创建成功"
-// @Router    /user/changePassword [post]
+// @Router    /tunnel/CreateTunnel [post]
 func (t *TunnelApi) CreateTunnel(c *gin.Context) {
 	var req tunnelReq.CreateTunnel
 	err := c.ShouldBindJSON(&req)
@@ -100,7 +100,6 @@ func (t *TunnelApi) DeleteTunnel(c *gin.Context) {
 // @Param     data  body    tunnelReq.FindUserAllTunnel "用户ID"
 // @Success   200   {object}  response.Response{msg=string}  "隧道查询成功"
 // @Router    /user/changePassword [post]
-
 func (t *TunnelApi) FindUserAllTunnels(c *gin.Context) {
 	var req tunnelReq.FindUserAllTunnels
 	err := c.ShouldBindJSON(&req)
@@ -123,5 +122,5 @@ func (t *TunnelApi) FindUserAllTunnels(c *gin.Context) {
 		return
 	}
 
-	response.OkWithDetailed(tunnelRes.FindUserAllTunnelsResponse{Tunnels: tunnels}, "查询隧道成功", c)
+	response.OkWithDetailed(tunnelRes.FindUserAllTunnelsResponse{Tunnels: tunnels, Total: len(tunnels)}, "查询隧道成功", c)
 }

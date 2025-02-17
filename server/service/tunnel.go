@@ -16,7 +16,6 @@ type TunnelService struct{}
 //@description: 创建隧道
 //@param: tunnel model.Tunnel
 //@return: err error, tunnelInter model.Tunnel
-
 func (tunnelService *TunnelService) CreateTunnel(t tunnel.Tunnel) (tunnelInter tunnel.Tunnel, err error) {
 	var tunnelModel tunnel.Tunnel
 	uid := t.Userid

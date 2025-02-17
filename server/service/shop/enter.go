@@ -1,5 +1,5 @@
 package shop
 
 type ServiceGroup struct {
-	VIPService    VIPService
+	ShopOrderService ShopOrderService
 }

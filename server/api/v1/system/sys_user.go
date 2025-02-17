@@ -170,7 +170,7 @@ func (b *BaseApi) ChangePassword(c *gin.Context) {
 }
 
 // GetUserList
-// @Tags      SysUser
+// @Tags      SysUser``
 // @Summary   分页获取用户列表
 // @Security  ApiKeyAuth
 // @accept    application/json

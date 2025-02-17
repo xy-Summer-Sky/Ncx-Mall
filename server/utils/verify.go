@@ -19,6 +19,9 @@ var (
 	SetUserAuthorityVerify 	= Rules{"AuthorityId": {NotEmpty()}}
 
 	// shop service
+	CreateShopOrderVerify 	= Rules{"ServiceType": {NotEmpty(), Ge("1"), Le("2")}, "Price": {NotEmpty(), Ge("0.01")}, "Status": {Ge("0"), Le("2")}}
+	DeleteShopOrderVerify 	= Rules{"OrderID": {NotEmpty()}}
+	GetUserOrdersVerify  	= Rules{"UserID": {NotEmpty()}}
 
 	// tunnel service
 	CreateTunnelVerify 		= Rules{"Tunnelname": {NotEmpty()}, "Tunneltype": {NotEmpty()}, "Tunnelpoint": {NotEmpty()}, "Localip": {NotEmpty()}, "Localport": {NotEmpty(), Ge("1"), Le("65535")}, "Remoteip": {NotEmpty()}, "Remoteport": {NotEmpty(), Ge("1"), Le("65535")}, "Token": {NotEmpty()}}
