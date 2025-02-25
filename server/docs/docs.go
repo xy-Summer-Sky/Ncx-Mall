@@ -15,6 +15,48 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/base/captcha": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Base"
+                ],
+                "summary": "生成验证码",
+                "responses": {
+                    "200": {
+                        "description": "生成验证码,返回包括随机数id,base64,验证码长度,是否开启验证码",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysCaptchaResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/base/login": {
             "post": {
                 "produces": [
@@ -202,6 +244,194 @@ const docTemplate = `{
                 }
             }
         },
+        "/shop/CreateShopOrder": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shop"
+                ],
+                "summary": "用户申请创建订单",
+                "parameters": [
+                    {
+                        "description": "订单信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单创建成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.CreateShopOrderResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/shop/DeleteShopOrder": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shop"
+                ],
+                "summary": "用户申请取消订单",
+                "parameters": [
+                    {
+                        "description": "订单取消请求体",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单删除成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/shop/GetUserOrders": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shop"
+                ],
+                "summary": "用户查询其拥有的所有订单",
+                "parameters": [
+                    {
+                        "description": "查询用户订单请求体",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GetUserOrders"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单查询成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.GetUserOrdersResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/tunnel/CreateTunnel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tunnel"
+                ],
+                "summary": "用户申请创建通道",
+                "parameters": [
+                    {
+                        "description": "用户ID，隧道参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateTunnel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "隧道创建成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/user/SetSelfInfo": {
             "put": {
                 "security": [
@@ -367,23 +597,23 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysUser"
+                    "Tunnel"
                 ],
-                "summary": "用户修改密码",
+                "summary": "用户查询其拥有的所有通道",
                 "parameters": [
                     {
-                        "description": "用户名, 原密码, 新密码",
+                        "description": "用户ID",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.ChangePasswordReq"
+                            "$ref": "#/definitions/request.FindUserAllTunnels"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "用户修改密码",
+                        "description": "隧道查询成功",
                         "schema": {
                             "allOf": [
                                 {
@@ -510,7 +740,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysUser"
+                    "SysUser` + "`" + `` + "`" + `"
                 ],
                 "summary": "分页获取用户列表",
                 "parameters": [
@@ -697,6 +927,105 @@ const docTemplate = `{
                 }
             }
         },
+        "request.CreateOrder": {
+            "type": "object",
+            "required": [
+                "price",
+                "serviceType"
+            ],
+            "properties": {
+                "createTime": {
+                    "description": "订单创建时间",
+                    "type": "integer",
+                    "example": 1645084800
+                },
+                "expireTime": {
+                    "description": "订单过期时间",
+                    "type": "integer",
+                    "example": 1676620800
+                },
+                "price": {
+                    "description": "订单价格",
+                    "type": "number",
+                    "example": 99.99
+                },
+                "serviceType": {
+                    "description": "服务类型：1-包年 2-包月",
+                    "type": "integer",
+                    "example": 1
+                },
+                "status": {
+                    "description": "订单状态：0-待支付 1-已支付 2-已取消",
+                    "type": "integer",
+                    "example": 0
+                }
+            }
+        },
+        "request.CreateTunnel": {
+            "type": "object",
+            "properties": {
+                "localip": {
+                    "type": "string",
+                    "example": "127.0.0.1"
+                },
+                "localport": {
+                    "type": "integer",
+                    "example": 22
+                },
+                "remoteip": {
+                    "type": "string",
+                    "example": "139.254.14.13"
+                },
+                "remoteport": {
+                    "type": "integer",
+                    "example": 23
+                },
+                "token": {
+                    "type": "string",
+                    "example": "123456"
+                },
+                "tunnelname": {
+                    "type": "string",
+                    "example": "ssh"
+                },
+                "tunnelpoint": {
+                    "type": "string",
+                    "example": "shanghai"
+                },
+                "tunneltype": {
+                    "type": "string",
+                    "example": "tcp"
+                }
+            }
+        },
+        "request.DeleteOrder": {
+            "type": "object",
+            "required": [
+                "orderId"
+            ],
+            "properties": {
+                "orderId": {
+                    "description": "订单ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteTunnel": {
+            "type": "object",
+            "properties": {
+                "tunnelId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.FindUserAllTunnels": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "request.GetById": {
             "type": "object",
             "properties": {
@@ -735,6 +1064,18 @@ const docTemplate = `{
                 }
             }
         },
+        "request.GetUserOrders": {
+            "type": "object",
+            "required": [
+                "userId"
+            ],
+            "properties": {
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
         "request.Login": {
             "type": "object",
             "properties": {
@@ -763,10 +1104,6 @@ const docTemplate = `{
                     "type": "string",
                     "example": "int 角色id"
                 },
-                "authorityIds": {
-                    "type": "string",
-                    "example": "[]uint 角色id"
-                },
                 "email": {
                     "type": "string",
                     "example": "电子邮箱"
@@ -794,6 +1131,28 @@ const docTemplate = `{
                 "userName": {
                     "type": "string",
                     "example": "用户名"
+                }
+            }
+        },
+        "response.CreateShopOrderResponse": {
+            "type": "object",
+            "properties": {
+                "shoporder": {
+                    "$ref": "#/definitions/shop.ShopOrder"
+                }
+            }
+        },
+        "response.GetUserOrdersResponse": {
+            "type": "object",
+            "properties": {
+                "shoporders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/shop.ShopOrder"
+                    }
+                },
+                "total": {
+                    "type": "integer"
                 }
             }
         },
@@ -849,11 +1208,66 @@ const docTemplate = `{
                 }
             }
         },
+        "response.SysCaptchaResponse": {
+            "type": "object",
+            "properties": {
+                "captchaId": {
+                    "type": "string"
+                },
+                "captchaLength": {
+                    "type": "integer"
+                },
+                "openCaptcha": {
+                    "type": "boolean"
+                },
+                "picPath": {
+                    "type": "string"
+                }
+            }
+        },
         "response.SysUserResponse": {
             "type": "object",
             "properties": {
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "shop.ShopOrder": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "expireTime": {
+                    "type": "integer"
+                },
+                "orderId": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "serviceType": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
                 }
             }
         },

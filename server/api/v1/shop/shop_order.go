@@ -15,13 +15,13 @@ import (
 type ShopOrderApi struct {}
 
 // CreateShopOrder
-// @Tags      Shop
-// @Summary   用户申请创建订单
-// @Security  ApiKeyAuth
+// @Tags     Shop
+// @Summary  用户申请创建订单
+// @Security ApiKeyAuth
 // @Produce  application/json
-// @Param     data  body    shopOrderReq.CreateShopOrder "订单信息"
-// @Success   200   {object}  response.Response{msg=string}  "订单创建成功"
-// @Router    /shop/CreateShopOrder [post]
+// @Param    data body     shopReq.CreateOrder true "订单信息"
+// @Success  200  {object} response.Response{data=shopRes.CreateShopOrderResponse} "订单创建成功"
+// @Router   /shop/CreateShopOrder [post]
 func (s *ShopOrderApi) CreateShopOrder(c *gin.Context) {
 	var req shopReq.CreateOrder
 	err := c.ShouldBindJSON(&req)
@@ -62,10 +62,10 @@ func (s *ShopOrderApi) CreateShopOrder(c *gin.Context) {
 // @Tags      Shop
 // @Summary   用户申请取消订单
 // @Security  ApiKeyAuth
-// @Produce  application/json
-// @Param     data  body    shopOrderReq.DeleteShopOrderReq "订单取消请求体"
-// @Success   200   {object}  response.Response{msg=string}  "订单删除成功"
-// @Router    /shop/CreateShopOrder [post]
+// @Produce   application/json
+// @Param     data body shopReq.DeleteOrder true "订单取消请求体"
+// @Success   200 {object} response.Response{msg=string} "订单删除成功"
+// @Router    /shop/DeleteShopOrder [post]
 func (s *ShopOrderApi) DeleteShopOrder(c *gin.Context) {
 	var req shopReq.DeleteOrder
 	err := c.ShouldBindJSON(&req)
@@ -96,10 +96,10 @@ func (s *ShopOrderApi) DeleteShopOrder(c *gin.Context) {
 // @Tags      Shop
 // @Summary   用户查询其拥有的所有订单
 // @Security  ApiKeyAuth
-// @Produce  application/json
-// @Param     data  body    tunnelReq.GetUserOrdersReq "请求体"
-// @Success   200   {object}  response.Response{msg=string}  "订单查询成功"
-// @Router    /user/changePassword [post]
+// @Produce   application/json
+// @Param     data body shopReq.GetUserOrders true "查询用户订单请求体"
+// @Success   200 {object} response.Response{data=shopRes.GetUserOrdersResponse} "订单查询成功"
+// @Router    /shop/GetUserOrders [post]
 func (s *ShopOrderApi) GetUserOrders(c *gin.Context) {
 	var req shopReq.GetUserOrders
 	err := c.ShouldBindJSON(&req)

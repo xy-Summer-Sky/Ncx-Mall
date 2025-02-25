@@ -91,7 +91,7 @@ captcha:
 mysql:
     path: "127.0.0.1"
     port: "3306"
-    config: ""
+    config: "parseTime=True"
     db-name: "ncx"
     username: "root"
     password: "123456"
@@ -148,7 +148,7 @@ sqlite:
     log-zap: false
 db-list:
     - disable: true # 是否禁用
-      type: "" # 数据库的类型,目前支持mysql、pgsql、mssql、oracle
+      type: "mysql" # 数据库的类型,目前支持mysql、pgsql、mssql、oracle
       alias-name: "" # 数据库的名称,注意: alias-name 需要在db-list中唯一
       path: ""
       port: ""

@@ -30,6 +30,77 @@ definitions:
         description: 密码
         type: string
     type: object
+  request.CreateOrder:
+    properties:
+      createTime:
+        description: 订单创建时间
+        example: 1645084800
+        type: integer
+      expireTime:
+        description: 订单过期时间
+        example: 1676620800
+        type: integer
+      price:
+        description: 订单价格
+        example: 99.99
+        type: number
+      serviceType:
+        description: 服务类型：1-包年 2-包月
+        example: 1
+        type: integer
+      status:
+        description: 订单状态：0-待支付 1-已支付 2-已取消
+        example: 0
+        type: integer
+    required:
+    - price
+    - serviceType
+    type: object
+  request.CreateTunnel:
+    properties:
+      localip:
+        example: 127.0.0.1
+        type: string
+      localport:
+        example: 22
+        type: integer
+      remoteip:
+        example: 139.254.14.13
+        type: string
+      remoteport:
+        example: 23
+        type: integer
+      token:
+        example: "123456"
+        type: string
+      tunnelname:
+        example: ssh
+        type: string
+      tunnelpoint:
+        example: shanghai
+        type: string
+      tunneltype:
+        example: tcp
+        type: string
+    type: object
+  request.DeleteOrder:
+    properties:
+      orderId:
+        description: 订单ID
+        type: integer
+    required:
+    - orderId
+    type: object
+  request.DeleteTunnel:
+    properties:
+      tunnelId:
+        type: integer
+    type: object
+  request.FindUserAllTunnels:
+    properties:
+      userId:
+        type: integer
+    type: object
   request.GetById:
     properties:
       id:
@@ -56,6 +127,14 @@ definitions:
       username:
         type: string
     type: object
+  request.GetUserOrders:
+    properties:
+      userId:
+        description: 用户ID
+        type: integer
+    required:
+    - userId
+    type: object
   request.Login:
     properties:
       captcha:
@@ -75,9 +154,6 @@ definitions:
     properties:
       authorityId:
         example: int 角色id
-        type: string
-      authorityIds:
-        example: '[]uint 角色id'
         type: string
       email:
         example: 电子邮箱
@@ -100,6 +176,20 @@ definitions:
       userName:
         example: 用户名
         type: string
+    type: object
+  response.CreateShopOrderResponse:
+    properties:
+      shoporder:
+        $ref: '#/definitions/shop.ShopOrder'
+    type: object
+  response.GetUserOrdersResponse:
+    properties:
+      shoporders:
+        items:
+          $ref: '#/definitions/shop.ShopOrder'
+        type: array
+      total:
+        type: integer
     type: object
   response.LoginResponse:
     properties:
@@ -135,10 +225,47 @@ definitions:
       msg:
         type: string
     type: object
+  response.SysCaptchaResponse:
+    properties:
+      captchaId:
+        type: string
+      captchaLength:
+        type: integer
+      openCaptcha:
+        type: boolean
+      picPath:
+        type: string
+    type: object
   response.SysUserResponse:
     properties:
       user:
         $ref: '#/definitions/system.SysUser'
+    type: object
+  shop.ShopOrder:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createTime:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      expireTime:
+        type: integer
+      orderId:
+        type: string
+      price:
+        type: number
+      serviceType:
+        type: integer
+      status:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
     type: object
   system.SysUser:
     properties:
@@ -183,6 +310,29 @@ definitions:
 info:
   contact: {}
 paths:
+  /base/captcha:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 生成验证码,返回包括随机数id,base64,验证码长度,是否开启验证码
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.SysCaptchaResponse'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 生成验证码
+      tags:
+      - Base
   /base/login:
     post:
       parameters:
@@ -288,6 +438,110 @@ paths:
       summary: jwt加入黑名单
       tags:
       - Jwt
+  /shop/CreateShopOrder:
+    post:
+      parameters:
+      - description: 订单信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 订单创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.CreateShopOrderResponse'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用户申请创建订单
+      tags:
+      - Shop
+  /shop/DeleteShopOrder:
+    post:
+      parameters:
+      - description: 订单取消请求体
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 订单删除成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用户申请取消订单
+      tags:
+      - Shop
+  /shop/GetUserOrders:
+    post:
+      parameters:
+      - description: 查询用户订单请求体
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetUserOrders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 订单查询成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.GetUserOrdersResponse'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用户查询其拥有的所有订单
+      tags:
+      - Shop
+  /tunnel/CreateTunnel:
+    post:
+      parameters:
+      - description: 用户ID，隧道参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateTunnel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 隧道创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用户申请创建通道
+      tags:
+      - Tunnel
   /user/SetSelfInfo:
     put:
       consumes:
@@ -380,17 +634,17 @@ paths:
   /user/changePassword:
     post:
       parameters:
-      - description: 用户名, 原密码, 新密码
+      - description: 用户ID
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.ChangePasswordReq'
+          $ref: '#/definitions/request.FindUserAllTunnels'
       produces:
       - application/json
       responses:
         "200":
-          description: 用户修改密码
+          description: 隧道查询成功
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -400,9 +654,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用户修改密码
+      summary: 用户查询其拥有的所有通道
       tags:
-      - SysUser
+      - Tunnel
   /user/deleteUser:
     delete:
       consumes:
@@ -484,7 +738,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取用户列表
       tags:
-      - SysUser
+      - SysUser``
   /user/resetPassword:
     post:
       parameters:

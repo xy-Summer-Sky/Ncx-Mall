@@ -6,9 +6,9 @@ type CreateTunnel struct {
 	Tunneltype 	string    	`json:"tunneltype" example:"tcp"`
 	Tunnelpoint string   	`json:"tunnelpoint" example:"shanghai"`
 	Localip 	string   	`json:"localip" example:"127.0.0.1"`
-	Localport 	uint16   	`json:"localport" example:"int 22"`
+	Localport 	uint16   	`json:"localport" example:"22"`
 	Remoteip 	string   	`json:"remoteip" example:"139.254.14.13"`
-	Remoteport 	uint16   	`json:"remoteport" example:"int 23"`
+	Remoteport 	uint16   	`json:"remoteport" example:"23"`
 	Token 		string   	`json:"token" example:"123456"`
 }
 

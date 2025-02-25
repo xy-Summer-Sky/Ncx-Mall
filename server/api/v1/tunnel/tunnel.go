@@ -17,9 +17,9 @@ type TunnelApi struct {}
 // @Tags      Tunnel
 // @Summary   用户申请创建通道
 // @Security  ApiKeyAuth
-// @Produce  application/json
-// @Param     data  body    tunnelReq.CreateTunnel "用户ID，隧道参数"
-// @Success   200   {object}  response.Response{msg=string}  "隧道创建成功"
+// @Produce   application/json
+// @Param     data body tunnelReq.CreateTunnel true "用户ID，隧道参数"
+// @Success   200 {object} response.Response{msg=string}  "隧道创建成功"
 // @Router    /tunnel/CreateTunnel [post]
 func (t *TunnelApi) CreateTunnel(c *gin.Context) {
 	var req tunnelReq.CreateTunnel
@@ -64,7 +64,7 @@ func (t *TunnelApi) CreateTunnel(c *gin.Context) {
 // @Summary   用户申请删除通道
 // @Security  ApiKeyAuth
 // @Produce  application/json
-// @Param     data  body    tunnelReq.DeleteTunnel "隧道ID"
+// @Param     data  body tunnelReq.DeleteTunnel true "隧道ID"
 // @Success   200   {object}  response.Response{msg=string}  "隧道删除成功"
 // @Router    /user/changePassword [post]
 func (t *TunnelApi) DeleteTunnel(c *gin.Context) {
@@ -97,7 +97,7 @@ func (t *TunnelApi) DeleteTunnel(c *gin.Context) {
 // @Summary   用户查询其拥有的所有通道
 // @Security  ApiKeyAuth
 // @Produce  application/json
-// @Param     data  body    tunnelReq.FindUserAllTunnel "用户ID"
+// @Param     data  body    tunnelReq.FindUserAllTunnels true "用户ID"
 // @Success   200   {object}  response.Response{msg=string}  "隧道查询成功"
 // @Router    /user/changePassword [post]
 func (t *TunnelApi) FindUserAllTunnels(c *gin.Context) {
