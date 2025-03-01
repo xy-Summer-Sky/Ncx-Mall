@@ -18,6 +18,13 @@ func RunWindowsServer() {
 		initialize.Redis()
 		initialize.RedisList()
 	}
+
+	if global.GVA_CONFIG.System.UseGrpcServer {
+		// 初始化grpc服务
+	    initialize.GrpcServer()
+		// 启动grpc服务
+		initialize.StartGrpcServer()
+	}
 	
 	// 从db加载jwt数据
 	if global.GVA_DB != nil {

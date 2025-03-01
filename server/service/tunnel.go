@@ -60,3 +60,8 @@ func (tunnelService *TunnelService) FindUserAllTunnels(id uint) (Tunnels []tunne
     err = global.GVA_DB.Where("userid = ?", id).Find(&Tunnels).Error
     return Tunnels, err
 }
+
+func (tunnelService *TunnelService) FindUserAllTunnelsByToken(token string) (Tunnels []tunnel.Tunnel, err error) {
+	err = global.GVA_DB.Where("token = ?", token).Find(&Tunnels).Error
+	return Tunnels, err 
+}
