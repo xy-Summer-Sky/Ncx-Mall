@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/qmgo"
+	"google.golang.org/grpc"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/timer"
 	"github.com/songzhibin97/gkit/cache/local_cache"
@@ -29,12 +30,12 @@ var (
 	GVA_MONGO     *qmgo.QmgoClient
 	GVA_CONFIG    config.Server
 	GVA_VP        *viper.Viper
-	// GVA_LOG    *oplogging.Logger
 	GVA_LOG                 *zap.Logger
 	GVA_Timer               timer.Timer = timer.NewTimerTask()
 	GVA_Concurrency_Control             = &singleflight.Group{}
 	GVA_ROUTERS             gin.RoutesInfo
 	GVA_ACTIVE_DBNAME       *string
+	GVA_GRPCSERVER		  *grpc.Server
 	BlackCache              local_cache.Cache
 	lock                    sync.RWMutex
 )
