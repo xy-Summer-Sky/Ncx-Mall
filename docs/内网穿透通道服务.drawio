@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" version="26.0.16">
+  <diagram name="第 1 页" id="olFrFww3Odr9HMwZh7mN">
+    <mxGraphModel dx="618" dy="356" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-1" value=":Web" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="240" y="50" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-3" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="7ZIDsbIMSvey4TQrC86V-1">
+          <mxGeometry x="45" y="100" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-2" value=":Client" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="80" y="50" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-4" value="ask config information with key" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="7ZIDsbIMSvey4TQrC86V-3" parent="1" source="7ZIDsbIMSvey4TQrC86V-2">
+          <mxGeometry x="-0.0029" relative="1" as="geometry">
+            <mxPoint x="240" y="155" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-5" value="return config information" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="7ZIDsbIMSvey4TQrC86V-3" parent="1" target="7ZIDsbIMSvey4TQrC86V-2">
+          <mxGeometry x="0.0017" relative="1" as="geometry">
+            <mxPoint x="240" y="225" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-6" value=":Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="400" y="50" width="100" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-7" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="7ZIDsbIMSvey4TQrC86V-6">
+          <mxGeometry x="44" y="210" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-8" value="connect with config information" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="7ZIDsbIMSvey4TQrC86V-7" parent="7ZIDsbIMSvey4TQrC86V-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-269.9" y="215" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-9" value="connect ack" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="7ZIDsbIMSvey4TQrC86V-7" parent="7ZIDsbIMSvey4TQrC86V-6">
+          <mxGeometry x="-0.001" relative="1" as="geometry">
+            <mxPoint x="-269.9" y="285" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-10" value="grpc" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="180" y="98" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-20" value="AskConfigInformationReq" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="570" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-21" value="+ token: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="7ZIDsbIMSvey4TQrC86V-20">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-28" value="客户端鉴权？" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="620" y="58" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-29" value="AskConfigInformationRes" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="570" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-30" value="+ client: clientConfig" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="7ZIDsbIMSvey4TQrC86V-29">
+          <mxGeometry y="26" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-31" value="+ repeated service: serviceConfig" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="7ZIDsbIMSvey4TQrC86V-29">
+          <mxGeometry y="52" width="240" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-33" value="AskConfigInformation" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="210" y="440" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-36" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="7ZIDsbIMSvey4TQrC86V-20" target="7ZIDsbIMSvey4TQrC86V-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="540" as="sourcePoint" />
+            <mxPoint x="350" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ZIDsbIMSvey4TQrC86V-38" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="7ZIDsbIMSvey4TQrC86V-29" target="7ZIDsbIMSvey4TQrC86V-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="204" y="580" as="sourcePoint" />
+            <mxPoint x="277" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -16,7 +16,7 @@ type Tunnel struct {
 	Localport 	uint16   	`json:"localport" gorm:"comment:本地端口"`
 	Remtoeip 	string   	`json:"remoteip" gorm:"comment:远程IP"`
 	Remoteport 	uint16   	`json:"remoteport" gorm:"comment:远程端口"`
-	Token 		string   	`json:"token" gorm:"comment:通道令牌"`
+	Token 		string   	`json:"token" gorm:"index;comment:通道令牌"`
     Userid      uint        `json:"userid" gorm:"foreignkey;comment:隧道所属用户ID"`
 }
 
@@ -34,16 +34,6 @@ func GetTunnelById(db *gorm.DB, tunnelId string) (*Tunnel, error) {
         return nil, err
     }
     return &tunnel, nil
-}
-
-// ListTunnels 获取通道列表
-func ListTunnels(db *gorm.DB) ([]Tunnel, error) {
-    var tunnels []Tunnel
-    err := db.Find(&tunnels).Error
-    if err != nil {
-        return nil, err
-    }
-    return tunnels, nil
 }
 
 // UpdateTunnel 更新通道信息
