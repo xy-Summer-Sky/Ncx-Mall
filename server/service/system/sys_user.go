@@ -219,6 +219,14 @@ func (userService *UserService) FindUserByUuid(uuid string) (user *system.SysUse
 	return &u, nil
 }
 
+func (userService *UserService) FindUserByToken(token string) (user *system.SysUser, err error) {
+	var u system.SysUser
+	if err = global.GVA_DB.Where("token = ?", token).First(&u).Error; err != nil {
+		return &u, errors.New("用户不存在")
+	}
+	return &u, nil
+}
+
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: ResetPassword
 //@description: 修改用户密码

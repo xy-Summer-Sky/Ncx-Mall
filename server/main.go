@@ -33,6 +33,8 @@ func main() {
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
 	}
+
+	defer global.GVA_GRPCSERVER.GracefulStop()
 	
 	core.RunWindowsServer()
 }
