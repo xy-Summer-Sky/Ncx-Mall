@@ -50,9 +50,35 @@ func (shopOrderService *ShopOrderService) DeleteShopOrder(id int) (err error) {
 //@param: id int
 //@return: err error
 func (shopOrderService *ShopOrderService) PayShopOrder(id int) (err error) {
-	return nil
-}
+    var order shop.ShopOrder
+    // 查询订单信息
+    if err := global.GVA_DB.Where("id = ?", id).First(&order).Error; err != nil {
+        return err
+    }
 
+    // 判断订单是否已经支付
+    if order.Status == 1 {
+        return errors.New("订单已支付")
+    }
+
+    // 调用微信支付接口下单，生成预支付订单
+    var wxPayment WXPayService
+    wxResp, err := wxPayment.WechatPayOrder(order)
+    if err != nil {
+        return err
+    }
+
+    // 更新订单状态为预支付，并保存微信返回的预支付ID，方便后续生成支付二维码等操作
+    if err := global.GVA_DB.Model(&order).Updates(map[string]interface{}{
+        "Status":   "prepaid",
+        "PrepayID": wxResp.PrepayID,
+    }).Error; err != nil {
+        return err
+    }
+
+    // 可以选择将wxResp返回给上层，由前端生成支付二维码等处理
+    return nil
+}
 
 //@author: [smallcjy](https://github.com/smallcjy)
 //@function: GetUserOrders

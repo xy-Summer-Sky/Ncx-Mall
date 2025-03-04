@@ -124,3 +124,11 @@ func (s *ShopOrderApi) GetUserOrders(c *gin.Context) {
 	response.OkWithDetailed(shopRes.GetUserOrdersResponse{ShopOrders: orders}, "查询订单成功", c)
 
 }
+
+
+// 微信回调函数的url
+func (w * ShopOrderApi)NotifyWeChatPay(c * gin.Context) {
+   
+shopOrderService.WXPayService.NotifyWeChatPay(c)
+   
+}

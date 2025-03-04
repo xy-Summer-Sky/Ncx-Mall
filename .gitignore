@@ -40,3 +40,5 @@ web/pnpm-lock.yaml
 *.db
 *.sqlite
 *.sqlite3
+
+pkg
