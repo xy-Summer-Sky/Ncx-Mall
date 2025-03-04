@@ -94,7 +94,7 @@ mysql:
     config: "parseTime=True"
     db-name: "ncx"
     username: "root"
-    password: "123456"
+    password: "helloworld"
     max-idle-conns: 10
     max-open-conns: 100
     log-mode: ""

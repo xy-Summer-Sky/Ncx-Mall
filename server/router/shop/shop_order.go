@@ -11,5 +11,6 @@ func (s *ShopRouter) InitShopRouter(Router *gin.RouterGroup) {
 		shopRouter.POST("createShopOrder", shopApi.CreateShopOrder) // 创建ShopOrder
 		shopRouter.DELETE("deleteShopOrder", shopApi.DeleteShopOrder) // 删除ShopOrder
 		shopRouter.GET("getShopOrders", shopApi.GetUserOrders) // 根据ID获取ShopOrder
+		shopRouter.POST("/NotifyWeChatPay", shopApi.NotifyWeChatPay)//微信支付的回调函数
 	}
 }

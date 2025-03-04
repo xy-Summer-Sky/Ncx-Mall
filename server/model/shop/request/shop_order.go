@@ -20,3 +20,4 @@ type GetUserOrders struct {
     // Page   int  `json:"page" example:"1"`         // 页码
     // Size   int  `json:"size" example:"10"`        // 每页数量
 }
+
