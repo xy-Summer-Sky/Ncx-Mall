@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/model/shop"
 	"os"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -26,6 +27,7 @@ func RegisterTables() {
 	err := db.AutoMigrate(
 		system.SysUser{},
 		system.JwtBlacklist{},
+		shop.ShopOrder{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

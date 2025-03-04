@@ -140,3 +140,11 @@ cors:
 grpc-server:
     port: 1234
     type: tcp
+
+
+# 微信支付
+wxpay:
+    appid: "wx8397f8696b538317"
+    mch_id: "1473426802"
+    notify_url: "http://127.0.0.1:8888/shop/notifyWeChatPay"  # 请替换为实际回调地址
+    api_key: "T6m9iK73b0kn9g5v426MKfHQH7X8rKwbz"

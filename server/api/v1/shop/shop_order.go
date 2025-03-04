@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ShopOrderApi struct {}
+type ShopOrderApi struct{}
 
 // CreateShopOrder
 // @Tags     Shop
@@ -37,13 +37,13 @@ func (s *ShopOrderApi) CreateShopOrder(c *gin.Context) {
 	}
 
 	// 创建订单
-	order := &shop.ShopOrder {
-		OrderID: uuid.New(),
+	order := &shop.ShopOrder{
+		OrderID:     uuid.New(),
 		ServiceType: req.ServiceType,
-		Price: req.Price,
-		Status: req.Status,
-		CreateTime: req.CreateTime,
-		ExpireTime: req.ExpireTime,
+		Price:       req.Price,
+		Status:      req.Status,
+		CreateTime:  req.CreateTime,
+		ExpireTime:  req.ExpireTime,
 	}
 
 	order.UserID = utils.GetUserID(c)
@@ -125,10 +125,55 @@ func (s *ShopOrderApi) GetUserOrders(c *gin.Context) {
 
 }
 
+// NotifyWeChatPay 微信回调函数的url
+func (s *ShopOrderApi) NotifyWeChatPay(c *gin.Context) {
 
-// 微信回调函数的url
-func (w * ShopOrderApi)NotifyWeChatPay(c * gin.Context) {
-   
-shopOrderService.WXPayService.NotifyWeChatPay(c)
-   
+	var notifyEncryptedData shopRes.WeChatNotifyResponse
+	if err := c.ShouldBindJSON(notifyEncryptedData); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopOrderService.WXPayService.NotifyWeChatPay(notifyEncryptedData)
+
+}
+
+// ConfirmPay 确认订单支付
+func (s *ShopOrderApi) ConfirmPay(c *gin.Context) {
+	// 解析请求体为shopReq.WechatPayWebRequest结构体
+	global.GVA_LOG.Info("1调用微信支付下单接口，获取预支付订单信息（二维码等数据）")
+	var orderReq shopReq.WechatPayWebRequest
+	if err := c.ShouldBindJSON(&orderReq); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	// 从全局配置中获取AppID和MchID
+	appID := global.GVA_CONFIG.WXPay.AppID
+	mchID := global.GVA_CONFIG.WXPay.MchID
+
+	// 创建微信支付请求结构体
+	orderNativeApiReq := shopReq.WechatPayServerRequest{
+		AppID:     appID,
+		MchID:     mchID,
+		NotifyURL: global.GVA_CONFIG.WXPay.NotifyURL,
+		WechatPayWebRequest: shopReq.WechatPayWebRequest{
+			Description: orderReq.Description,
+			OutTradeNo:  orderReq.OutTradeNo,
+			TimeExpire:  orderReq.TimeExpire,
+			Attach:      orderReq.Attach,
+
+			Amount: orderReq.Amount,
+		},
+	}
+	// 调用微信支付下单接口，获取预支付订单信息（二维码等数据）
+	global.GVA_LOG.Info("调用微信支付下单接口，获取预支付订单信息（二维码等数据）")
+	wxResp, err := shopOrderService.WXPayService.WechatPayOrder(orderNativeApiReq)
+	global.GVA_LOG.Info("调用微信支付下单接口，获取预支付订单信息（二维码等数据2）")
+	if err != nil {
+		global.GVA_LOG.Error("微信支付下单失败", zap.Error(err))
+		response.FailWithMessage("微信支付下单失败: "+err.Error(), c)
+		return
+	}
+	// 返回微信支付响应数据，其中wxResp.CodeURL用于生成二维码展示给前端
+	response.OkWithDetailed(shopRes.WechatPayResponseURLCode{CodeURL: wxResp.CodeURL}, "扫码支付下单成功", c)
 }

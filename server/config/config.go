@@ -26,7 +26,7 @@ type Server struct {
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 	// auto 
-	AutoCode Autocode `mapstructure:"autocode" json:"autocode" yaml:"autocode"`
+	// AutoCode Autocode `mapstructure:"autocode" json:"autocode" yaml:"autocode"`
 	// 微信配置
 	WXPay WXPayConfig `json:"wxpay" yaml:"wxpay"`
 	//grpc
